@@ -25,7 +25,7 @@ def addition_search(block_width, pre_calc_sum, search_pub, queue, pow10_nums, po
     secp256k1.bloom_load(1, 'bloom2.bf')
     while True:
         if secp256k1.bloom_check_bytes(0, starting_point):
-            print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit {bloomfile1} (Even Point) [Lower Range Half]')            
+            print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit bloom1.bf (Even Point) [Lower Range Half]')            
             P = starting_point
             privkey_num = []
             for i,p in enumerate(pow10_points):
@@ -47,7 +47,7 @@ def addition_search(block_width, pre_calc_sum, search_pub, queue, pow10_nums, po
                 
             
         if secp256k1.bloom_check_bytes(1, starting_point):
-            print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit {bloomfile2} (Odd Point) [Lower Range Half]')
+            print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit bloom2.bf (Odd Point) [Lower Range Half]')
             P = starting_point
             privkey_num = []
             for i,p in enumerate(pow10_points):
@@ -93,7 +93,7 @@ def subtraction_search(block_width, pre_calc_sum, search_pub, queue, pow10_nums,
     secp256k1.bloom_load(1, 'bloom2.bf')
     while True:
         if secp256k1.bloom_check_bytes(0, starting_point):
-            print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit {bloomfile1} (Even Point) [Higher Range Half]')
+            print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit bloom1.bf (Even Point) [Higher Range Half]')
             P = starting_point
             privkey_num = []
             for i,p in enumerate(pow10_points):
@@ -114,7 +114,7 @@ def subtraction_search(block_width, pre_calc_sum, search_pub, queue, pow10_nums,
             print(f'[{datetime.now().strftime("%H:%M:%S")}] False Positive')
  
         if secp256k1.bloom_check_bytes(1, starting_point):
-            print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit {bloomfile2} (Odd Point) [Higher Range Half]')
+            print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit bloom2.bf (Odd Point) [Higher Range Half]')
             P = starting_point
             privkey_num = []
             for i,p in enumerate(pow10_points):
