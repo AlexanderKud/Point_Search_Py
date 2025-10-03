@@ -21,10 +21,8 @@ def addition_search(block_width, pre_calc_sum, search_pub, queue, pow10_nums, po
     settings.close()
     stride = 2**block_width
     stride_point = secp256k1.scalar_multiplication(stride)
-    bloomfile1 = 'bloom1.bf'
-    secp256k1.bloom_load(0, bloomfile1)
-    bloomfile2 = 'bloom2.bf'
-    secp256k1.bloom_load(1, bloomfile2)
+    secp256k1.bloom_load(0, 'bloom1.bf')
+    secp256k1.bloom_load(1, 'bloom2.bf')
     while True:
         if secp256k1.bloom_check_bytes(0, starting_point):
             print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit {bloomfile1} (Even Point) [Lower Range Half]')            
@@ -91,10 +89,8 @@ def subtraction_search(block_width, pre_calc_sum, search_pub, queue, pow10_nums,
     settings.close()
     stride = 2**block_width
     stride_point = secp256k1.scalar_multiplication(stride)
-    bloomfile1 = 'bloom1.bf'
-    secp256k1.bloom_load(0, bloomfile1)
-    bloomfile2 = 'bloom2.bf'
-    secp256k1.bloom_load(1, bloomfile2)
+    secp256k1.bloom_load(0, 'bloom1.bf')
+    secp256k1.bloom_load(1, 'bloom2.bf')
     while True:
         if secp256k1.bloom_check_bytes(0, starting_point):
             print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit {bloomfile1} (Even Point) [Higher Range Half]')
