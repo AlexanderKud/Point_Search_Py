@@ -13,7 +13,7 @@ def bloom_create1(block_width, puzzle_point):
     print(f'[{datetime.now().strftime("%H:%M:%S")}] Creating bloomfile1')
     P = puzzle_point
     for i in range(2**block_width):
-        secp256k1.bloom_add_bytes(0, P[1:33])
+        secp256k1.bloom_add_bytes(0, P)
         P = secp256k1.add_points(P, G)
     print(f'[{datetime.now().strftime("%H:%M:%S")}] Writing Bloomfilter to bloom1.bf')
     secp256k1.bloom_save(0, 'bloom1.bf')
@@ -26,7 +26,7 @@ def bloom_create2(block_width, puzzle_point_05):
     print(f'[{datetime.now().strftime("%H:%M:%S")}] Creating bloomfile2')
     P = puzzle_point_05
     for i in range(2**block_width):
-        secp256k1.bloom_add_bytes(1, P[1:33])
+        secp256k1.bloom_add_bytes(1, P)
         P = secp256k1.add_points(P, G)
     print(f'[{datetime.now().strftime("%H:%M:%S")}] Writing Bloomfilter to bloom2.bf')
     secp256k1.bloom_save(1, 'bloom2.bf')    
