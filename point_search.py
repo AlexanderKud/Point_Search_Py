@@ -149,7 +149,7 @@ def main(block_width, pre_calc_sum, search_pub, queue, start_time):
     for num in pow10_nums:
         pow10_points.append(secp256k1.scalar_multiplication(num))
     
-    print(f'[{datetime.now().strftime("%H:%M:%S")}] Search in progress')
+    print(f'[{datetime.now().strftime("%H:%M:%S")}] Search in progress...')
         
     p1 = mp.Process(target=addition_search, args=(block_width, pre_calc_sum, search_pub, queue, pow10_nums, pow10_points))
     p2 = mp.Process(target=subtraction_search, args=(block_width, pre_calc_sum, search_pub, queue, pow10_nums, pow10_points))
