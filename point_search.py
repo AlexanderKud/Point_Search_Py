@@ -24,13 +24,13 @@ def addition_search(block_width, pre_calc_sum, search_pub, queue, pow10_nums, po
     secp256k1.bloom_load(0, 'bloom1.bf')
     secp256k1.bloom_load(1, 'bloom2.bf')
     while True:
-        if secp256k1.bloom_check_bytes(0, starting_point):
+        if secp256k1.bloom_check_bytes(0, starting_point[1:33]):
             print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit bloom1.bf (Even Point) [Lower Range Half]')            
             P = starting_point
             privkey_num = []
             for i,p in enumerate(pow10_points):
                 count = 0
-                while secp256k1.bloom_check_bytes(0, P):
+                while secp256k1.bloom_check_bytes(0, P[1:33]):
                     P = secp256k1.subtract_points(P, p)
                     count += 1
                 privkey_num.append(pow10_nums[i] * (count - 1))
@@ -46,13 +46,13 @@ def addition_search(block_width, pre_calc_sum, search_pub, queue, pow10_nums, po
             print(f'[{datetime.now().strftime("%H:%M:%S")}] False Positive')
                 
             
-        if secp256k1.bloom_check_bytes(1, starting_point):
+        if secp256k1.bloom_check_bytes(1, starting_point[1:33]):
             print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit bloom2.bf (Odd Point) [Lower Range Half]')
             P = starting_point
             privkey_num = []
             for i,p in enumerate(pow10_points):
                 count = 0
-                while secp256k1.bloom_check_bytes(1, P):
+                while secp256k1.bloom_check_bytes(1, P[1:33]):
                     P = secp256k1.subtract_points(P, p)
                     count += 1
                 privkey_num.append(pow10_nums[i] * (count - 1))
@@ -92,13 +92,13 @@ def subtraction_search(block_width, pre_calc_sum, search_pub, queue, pow10_nums,
     secp256k1.bloom_load(0, 'bloom1.bf')
     secp256k1.bloom_load(1, 'bloom2.bf')
     while True:
-        if secp256k1.bloom_check_bytes(0, starting_point):
+        if secp256k1.bloom_check_bytes(0, starting_point[1:33]):
             print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit bloom1.bf (Even Point) [Higher Range Half]')
             P = starting_point
             privkey_num = []
             for i,p in enumerate(pow10_points):
                 count = 0
-                while secp256k1.bloom_check_bytes(0, P):
+                while secp256k1.bloom_check_bytes(0, P[1:33]):
                     P = secp256k1.subtract_points(P, p)
                     count += 1
                 privkey_num.append(pow10_nums[i] * (count - 1))
@@ -113,13 +113,13 @@ def subtraction_search(block_width, pre_calc_sum, search_pub, queue, pow10_nums,
                 return
             print(f'[{datetime.now().strftime("%H:%M:%S")}] False Positive')
  
-        if secp256k1.bloom_check_bytes(1, starting_point):
+        if secp256k1.bloom_check_bytes(1, starting_point[1:33]):
             print(f'[{datetime.now().strftime("%H:%M:%S")}] BloomFilter Hit bloom2.bf (Odd Point) [Higher Range Half]')
             P = starting_point
             privkey_num = []
             for i,p in enumerate(pow10_points):
                 count = 0
-                while secp256k1.bloom_check_bytes(1, P):
+                while secp256k1.bloom_check_bytes(1, P[1:33]):
                     P = secp256k1.subtract_points(P, p)
                     count += 1
                 privkey_num.append(pow10_nums[i] * (count - 1))
