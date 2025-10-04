@@ -7,7 +7,7 @@ import multiprocessing as mp
 
 def bloom_create1(block_width, puzzle_point):
     G = secp256k1.scalar_multiplication(1)
-    _elem = int(1.4 * (2**block_width))
+    _elem = (2 * (2**block_width))
     _fp = 0.000001
     secp256k1.init_bloom(0, _elem, _fp)
     print(f'[{datetime.now().strftime("%H:%M:%S")}] Creating bloomfile1')
@@ -20,7 +20,7 @@ def bloom_create1(block_width, puzzle_point):
 
 def bloom_create2(block_width, puzzle_point_05):
     G = secp256k1.scalar_multiplication(1)
-    _elem = int(1.4 * (2**block_width))
+    _elem = (2 * (2**block_width))
     _fp = 0.000001
     secp256k1.init_bloom(1, _elem, _fp)
     print(f'[{datetime.now().strftime("%H:%M:%S")}] Creating bloomfile2')
