@@ -217,6 +217,11 @@ def publickey_to_address(addr_type, compressed, p):
     secp256k1.publickey_to_address(addr_type, compressed, p, res)
     return res.rstrip(b'\x00').decode('utf-8')
 
+def publickey_to_bech32_p2wsh_address(p):
+    res = bytes(62)
+    secp256k1.publickey_to_address(3, True, p, res)
+    return res.decode('utf-8')
+
 def hash160_to_address(addr_type, compressed, hash160):
     res = bytes(42)
     secp256k1.hash160_to_address(addr_type, compressed, bytes.fromhex(hash160), res)
@@ -255,10 +260,4 @@ def bloom_add(index, item):
 
 def bloom_check(index, item):
     if type(item) != bytes: item = str(item).encode('utf-8')
-    return secp256k1.bloom_check(index, item, len(item))
-
-def bloom_add_bytes(index, item):
-    secp256k1.bloom_add(index, item, len(item))
-
-def bloom_check_bytes(index, item):
     return secp256k1.bloom_check(index, item, len(item))
