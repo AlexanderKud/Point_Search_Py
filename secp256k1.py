@@ -67,6 +67,9 @@ secp256k1.privatekey_to_address.restype = None
 secp256k1.publickey_to_address.argtypes = [ctypes.c_int, ctypes.c_bool, ctypes.c_char_p, ctypes.c_char_p]
 secp256k1.publickey_to_address.restype = None
 
+secp256k1.publickey_to_bech32_p2wsh_address.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+secp256k1.publickey_to_bech32_p2wsh_address.restype = None
+
 secp256k1.hash160_to_address.argtypes = [ctypes.c_int, ctypes.c_bool, ctypes.c_char_p, ctypes.c_char_p]
 secp256k1.hash160_to_address.restype = None
 
@@ -219,7 +222,7 @@ def publickey_to_address(addr_type, compressed, p):
 
 def publickey_to_bech32_p2wsh_address(p):
     res = bytes(62)
-    secp256k1.publickey_to_address(3, True, p, res)
+    secp256k1.publickey_to_bech32_p2wsh_address(p, res)
     return res.decode('utf-8')
 
 def hash160_to_address(addr_type, compressed, hash160):
