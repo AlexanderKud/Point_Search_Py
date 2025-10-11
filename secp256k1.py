@@ -234,7 +234,7 @@ def privatekey_to_bech32_address(pk):
     pvk = (pk % N).to_bytes(32, 'big')
     res = bytes(42)
     secp256k1.privatekey_to_bech32_address(pvk, res)
-    return res.rstrip(b'\x00').decode('utf-8')
+    return res.decode('utf-8')
 
 def publickey_to_bech32_address(p):
     res = bytes(42)
