@@ -67,6 +67,12 @@ secp256k1.privatekey_to_address.restype = None
 secp256k1.publickey_to_address.argtypes = [ctypes.c_int, ctypes.c_bool, ctypes.c_char_p, ctypes.c_char_p]
 secp256k1.publickey_to_address.restype = None
 
+secp256k1.privatekey_to_bech32_address.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+secp256k1.privatekey_to_bech32_address.restype = None
+
+secp256k1.publickey_to_bech32_address.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+secp256k1.publickey_to_bech32_address.restype = None
+
 secp256k1.publickey_to_bech32_p2wsh_address.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
 secp256k1.publickey_to_bech32_p2wsh_address.restype = None
 
@@ -180,13 +186,15 @@ def decrement_point(pBytes):
 
 def point_on_curve(pBytes):
     return secp256k1.point_on_curve(pBytes)
-
+    
+# addr_type = 0 [p2pkh] compressed=False(uncompressed) compressed=True(compressed),  1 [p2sh] compressed=True
 def privatekey_to_hash160(addr_type, compressed, pk):
     pvk = (pk % N).to_bytes(32, 'big')
     res = bytes(20)
     secp256k1.privatekey_to_hash160(addr_type, compressed, pvk, res)
     return res.hex()
     
+# addr_type = 0 [p2pkh] compressed=False(uncompressed) compressed=True(compressed),  1 [p2sh] compressed=True    
 def publickey_to_hash160(addr_type, compressed, pBytes):
     res = bytes(20)
     secp256k1.publickey_to_hash160(addr_type, compressed, pBytes, res)
@@ -209,16 +217,29 @@ def wif_to_privatekey(wif):
     secp256k1.wif_to_privatekey(wif.encode('utf-8'), res)
     return int.from_bytes(res, 'big')
 
+# addr_type = 0 [p2pkh] compressed=False(uncompressed) compressed=True(compressed),  1 [p2sh] compressed=True
 def privatekey_to_address(addr_type, compressed, pk):
     pvk = (pk % N).to_bytes(32, 'big')
-    res = bytes(42)
+    res = bytes(35)
     secp256k1.privatekey_to_address(addr_type, compressed, pvk, res)
     return res.rstrip(b'\x00').decode('utf-8')
-    
+
+# addr_type = 0 [p2pkh] compressed=False(uncompressed) compressed=True(compressed),  1 [p2sh] compressed=True    
 def publickey_to_address(addr_type, compressed, p):
-    res = bytes(42)
+    res = bytes(35)
     secp256k1.publickey_to_address(addr_type, compressed, p, res)
     return res.rstrip(b'\x00').decode('utf-8')
+
+def privatekey_to_bech32_address(pk):
+    pvk = (pk % N).to_bytes(32, 'big')
+    res = bytes(42)
+    secp256k1.privatekey_to_bech32_address(pvk, res)
+    return res.rstrip(b'\x00').decode('utf-8')
+
+def publickey_to_bech32_address(p):
+    res = bytes(42)
+    secp256k1.publickey_to_bech32_address(p, res)
+    return res.decode('utf-8')
 
 def publickey_to_bech32_p2wsh_address(p):
     res = bytes(62)
