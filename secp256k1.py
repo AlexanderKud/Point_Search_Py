@@ -285,3 +285,9 @@ def bloom_add(index, item):
 def bloom_check(index, item):
     if type(item) != bytes: item = str(item).encode('utf-8')
     return secp256k1.bloom_check(index, item, len(item))
+
+def bloom_add_bytes(index, item):
+    secp256k1.bloom_add(index, item, len(item))
+
+def bloom_check_bytes(index, item):
+    return secp256k1.bloom_check(index, item, len(item))
