@@ -1,4 +1,5 @@
 # requires python3.13t(NoGIL)
+# python3.13t -Xgil=0 point_search_threading.py
 from datetime import datetime
 import secp256k1
 import sys
