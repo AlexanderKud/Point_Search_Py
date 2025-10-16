@@ -47,14 +47,6 @@ def main(block_width, puzzle_point, puzzle_point_05, start_time):
 #==============================================================================
 if __name__ == '__main__':
 
-    try:
-        os.remove("settings1.txt")
-        os.remove("settings2.txt")
-        os.remove("bloom1.bf")
-        os.remove("bloom2.bf")
-    except OSError:
-        pass
-    
     P_table = []
     pk = 1
     for i in range(256):
