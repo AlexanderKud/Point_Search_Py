@@ -1,5 +1,4 @@
 import ctypes
-import gmpy2
 import platform
 
 if platform.system() == 'Linux':
@@ -15,6 +14,9 @@ secp256k1.scalar_multiplication.restype = None
 
 secp256k1.point_multiplication.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
 secp256k1.point_multiplication.restype = None
+
+secp256k1.point_division.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
+secp256k1.point_division.restype = None
 
 secp256k1.double_point.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
 secp256k1.double_point.restype = None
@@ -107,7 +109,7 @@ N       = 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141
 lambda1 = 0x5363ad4cc05c30e0a5261c028812645a122e22ea20816678df02967c1b23bd72
 lambda2 = 0xac9c52b33fa3cf1f5ad9e3fd77ed9ba4a880b9fc8ec739c2e0cfc810b51283ce
 P       = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
-beta    = 0x7ae96a2b657c07106e64479eac3434e99cf0497512f58995c1396c28719501ee
+beta1   = 0x7ae96a2b657c07106e64479eac3434e99cf0497512f58995c1396c28719501ee
 beta2   = 0x851695d49a83f8ef919bb86153cbcb16630fb68aed0a766a3ec693d68e6afa40
     
 secp256k1.Init()
@@ -126,11 +128,11 @@ def point_multiplication(p, pk):
     res = bytes(65)
     secp256k1.point_multiplication(p, pvk, res)
     return res
-
+   
 def point_division(p, pk):
-    pvk = gmpy2.invert(pk, N).to_bytes(32, 'big')
+    pvk = (pk % N).to_bytes(32, 'big')
     res = bytes(65)
-    secp256k1.point_multiplication(p, pvk, res)
+    secp256k1.point_division(p, pvk, res)
     return res
 
 def point_to_upub(pBytes):
